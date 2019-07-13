@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#660077</color>
+    <color name="colorPrimaryDark">#4E005B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="colorContent">#1F0023</color>
+    <color name="amountColor">#A300C4</color>
+    <color name="jacaranda_category">#2A052E</color>
+    <color name="violet_eggplant_amount">#8C0091</color>
+    <color name="clairvoyant_pressed">#560b59</color>
+    <color name="clairvoyant_category_pressed">#410447</color>
+    <color name="violet_eggplant_marker">#850085</color>
+</resources>

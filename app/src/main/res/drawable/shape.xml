@@ -1,0 +1,14 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt"
+        android:viewportWidth="1000"
+        android:viewportHeight="2000"
+        android:width="30dp"
+        android:height="60dp">
+    <path
+            android:pathData="M947.3 493.4c0 -247 -200.2 -447.3 -447.3 -447.3S52.7 246.4 52.7 493.4c0 54.3 9.7 106.4 27.4 154.5h0L500 2000L919.8 648h0C937.6 599.8 947.3 547.7 947.3 493.4z"
+            android:strokeColor="@color/colorContent"
+            android:strokeWidth="50"
+            android:fillColor="@color/violet_eggplant_marker" />
+    <path
+            android:pathData="M389 152.6h21.1h1.9l88 169.9l86.2 -169.9h3.7h19.8L500 369L389 152.6zM612.2 218.3v47.1V648h-22.3V308.2l-31.6 63.9V648h-23.6V413L500 483.7l-35.3 -67V648h-21.1V375.2l-33.5 -63.2v336H389V269.1V222l111 216.4L612.2 218.3z"
+            android:fillColor="@color/cardview_light_background" />
+</vector>

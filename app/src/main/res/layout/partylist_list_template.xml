@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"><data>
+    <variable name="partyInformation"
+              type="com.karasm.meet.database.dbentities.PartyInformation"/>
+</data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorContent"
+    >
+        <androidx.cardview.widget.CardView android:layout_width="0dp"
+                                            android:layout_height="220dp"
+
+                                            app:layout_constraintTop_toTopOf="parent"
+                                            app:layout_constraintBottom_toBottomOf="parent"
+                                            app:layout_constraintStart_toStartOf="parent"
+                                            app:layout_constraintHorizontal_bias="0.444"
+                                            app:layout_constraintEnd_toEndOf="parent"
+                                            app:layout_constraintVertical_bias="0.01999998"
+                                            app:cardUseCompatPadding="true"
+                                            android:id="@+id/cardView2"
+                                            android:orientation="vertical"
+                                            app:cardCornerRadius="8dp"
+                                            app:cardElevation="0dp">
+            <FrameLayout android:layout_width="match_parent"
+                         android:layout_height="match_parent"
+                         android:foreground="@drawable/backgound_layout"
+            >
+                <ImageView android:layout_width="match_parent"
+                           android:layout_height="match_parent"
+                           android:scaleType="centerCrop"
+                           android:id="@+id/backImage"
+                />
+            </FrameLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+            >
+                <TextView android:id="@+id/titleOfTheCard"
+                          android:layout_width="0dp"
+                          android:layout_height="wrap_content"
+                          android:text="@{partyInformation.title}"
+                          android:gravity="center"
+                          android:maxLines="1"
+                          android:ellipsize="end"
+                          android:textColor="@android:color/background_light"
+                          android:textSize="42sp"
+                          app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+                          app:layout_constraintStart_toStartOf="parent"
+                          app:layout_constraintEnd_toEndOf="parent" app:layout_constraintVertical_bias="0.427"
+                          android:fontFamily="@font/ptsansbold"
+                          android:layout_marginEnd="8dp" android:layout_marginStart="8dp"/>
+                <TextView
+                        android:id="@+id/dateOfTheCard"
+                        android:text="@{partyInformation.date}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintTop_toBottomOf="@+id/titleOfTheCard"
+                        app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintEnd_toEndOf="parent" android:fontFamily="@font/ptsans"
+                        android:textColor="@android:color/background_light" android:textSize="18sp"/>
+                <TextView
+                        android:text=""
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/pricePeopleCard"
+                        android:layout_marginBottom="8dp"
+                        app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="8dp" android:fontFamily="@font/ptsans"
+                        android:textColor="@android:color/background_light" android:textSize="30sp"/>
+                <TextView
+                        android:text=""
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/totalPeopleCard" app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginEnd="8dp" android:layout_marginBottom="8dp"
+                        app:layout_constraintBottom_toBottomOf="parent" android:fontFamily="@font/ptsansbold"
+                        android:textColor="@android:color/background_light" android:textSize="30sp"/>
+                <TextView
+                        android:text=""
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/amountPeopleCard" app:layout_constraintEnd_toStartOf="@+id/totalPeopleCard"
+                        app:layout_constraintTop_toTopOf="@+id/totalPeopleCard"
+                        app:layout_constraintBottom_toBottomOf="@+id/totalPeopleCard" android:textSize="30sp"
+                        android:fontFamily="@font/ptsansbold" android:textColor="@color/amountColor"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout></layout>

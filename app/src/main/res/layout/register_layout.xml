@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+                                             android:background="@color/colorContent"
+                                             android:layout_height="match_parent">
+    <include layout="@layout/toolbar_template" android:id="@+id/include3" app:layout_constraintTop_toTopOf="parent"
+             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+    />
+    <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include3">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="vertical">
+            <include layout="@layout/register_photo"/>
+            <include layout="@layout/register_name" />
+            <include layout="@layout/register_phone" />
+            <include layout="@layout/register_email" />
+            <include layout="@layout/register_password" />
+            <include layout="@layout/register_date" />
+            <include layout="@layout/register_about" />
+            <include layout="@layout/register_submit" />
+        </LinearLayout>
+    </ScrollView>
+
+
+
+    <!--<android.support.design.widget.TextInputLayout-->
+            <!--android:id="@+id/txtInputRegisterPhone"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:gravity="center_horizontal"-->
+
+            <!--app:counterEnabled="true"-->
+            <!--app:counterTextAppearance="@style/CounterStyle"-->
+            <!--app:counterMaxLength="50"-->
+            <!--app:errorEnabled="true" android:layout_marginEnd="50dp"-->
+            <!--app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="50dp"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintHorizontal_bias="1.0"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/txtInputRegisterEmail" android:layout_marginTop="4dp">-->
+        <!--<EditText-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:inputType="textPersonName"-->
+                <!--android:ems="10"-->
+                <!--android:id="@+id/registerPhoneBox"-->
+                <!--android:singleLine="true"-->
+                <!--android:background="@drawable/edit_box"-->
+                <!--android:textColor="@android:color/background_light"-->
+                <!--android:hint="Телефон"-->
+                <!--android:fontFamily="@font/ptsans"/>-->
+    <!--</android.support.design.widget.TextInputLayout>-->
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:background="@color/colorContent"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="wrap_content">
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtInputAbout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:counterEnabled="true"
+            app:counterTextAppearance="@style/CounterStyle"
+            app:counterMaxLength="140"
+            app:errorEnabled="true"
+            android:layout_marginEnd="50dp"
+    >
+        <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine|textNoSuggestions"
+                android:ems="10"
+                android:id="@+id/aboutRegisterBox"
+                android:background="@drawable/edit_box"
+                android:textColor="@android:color/background_light"
+                android:lines="5"
+                android:hint="@string/registerAbout"
+                android:fontFamily="@font/ptsansbold"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

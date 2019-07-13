@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:background="@color/colorContent"
+                                             android:layout_height="wrap_content">
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="0dp"
+                                                 android:layout_height="wrap_content"
+                                                 app:layout_constraintTop_toTopOf="parent"
+                                                 app:layout_constraintEnd_toEndOf="parent"
+                                                 android:layout_marginEnd="8dp"
+                                                 app:layout_constraintBottom_toBottomOf="parent"
+                                                 android:id="@+id/constraintLayout" android:layout_marginBottom="8dp"
+                                                 app:layout_constraintStart_toStartOf="parent"
+                                                 android:layout_marginStart="8dp">
+        <com.google.android.material.textfield.TextInputLayout android:layout_width="0dp"
+                                                       android:layout_height="wrap_content"
+                                                       android:id="@+id/textInputLayouPrice"
+                                                       app:layout_constraintTop_toTopOf="parent"
+                                                       app:counterEnabled="true"
+                                                       app:counterTextAppearance="@style/CounterStyle"
+                                                       app:counterMaxLength="10"
+                                                       app:errorEnabled="true"
+                                                       app:layout_constraintStart_toStartOf="parent"
+                                                       app:layout_constraintEnd_toEndOf="parent">
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName|numberDecimal"
+                    android:ems="10"
+                    android:id="@+id/createpartyPrice"
+                    android:singleLine="true"
+                    android:background="@drawable/edit_box"
+                    android:longClickable="false"
+                    android:textColor="@android:color/background_light"
+                    android:hint="@string/createPartyPrice"
+                    android:fontFamily="@font/ptsansbold"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <TextView
+                android:text="или"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView9"
+                android:fontFamily="@font/ptsansbold" android:textSize="18sp"
+                android:textColor="@android:color/background_light"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayouPrice" android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="8dp"/>
+        <com.google.android.material.textfield.TextInputLayout android:layout_width="0dp"
+                                                       android:layout_height="wrap_content"
+                                                       android:id="@+id/textInputLayoPriceInfo"
+                                                       app:layout_constraintEnd_toEndOf="parent"
+                                                       app:counterEnabled="true"
+                                                       app:counterTextAppearance="@style/CounterStyle"
+                                                       app:counterMaxLength="50"
+                                                       app:errorEnabled="true"
+                                                       app:layout_constraintStart_toStartOf="parent"
+                                                       app:layout_constraintTop_toBottomOf="@+id/textView9"
+                                                       android:layout_marginTop="8dp">
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:ems="10"
+                    android:id="@+id/createpartyPriceInfo"
+                    android:singleLine="true"
+                    android:background="@drawable/edit_box"
+
+                    android:textColor="@android:color/background_light"
+                    android:hint="@string/createPartyPriceInfo"
+                    android:fontFamily="@font/ptsansbold"/>
+        </com.google.android.material.textfield.TextInputLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

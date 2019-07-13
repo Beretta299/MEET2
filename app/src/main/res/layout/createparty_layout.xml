@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+                                             android:layout_height="match_parent">
+    <include layout="@layout/toolbar_template" android:id="@+id/include2" app:layout_constraintTop_toTopOf="parent"
+             app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintBottom_toTopOf="@+id/scrollView2"/>
+    <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include2" android:id="@+id/scrollView2">
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:background="@color/colorContent"
+                      android:orientation="vertical">
+            <include layout="@layout/createparty_pickimage"/>
+            <include layout="@layout/createparty_title"/>
+            <include layout="@layout/createparty_description"/>
+            <include layout="@layout/createparty_date"/>
+            <include layout="@layout/createparty_map"/>
+            <include layout="@layout/createparty_price"/>
+            <include layout="@layout/createparty_categories"/>
+            <include layout="@layout/createparty_amount"/>
+            <include layout="@layout/createparty_submit"/>
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

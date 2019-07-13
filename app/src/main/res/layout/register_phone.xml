@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             android:background="@color/colorContent"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="wrap_content">
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtInputRegisterPhone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+
+            app:counterEnabled="true"
+            app:counterTextAppearance="@style/CounterStyle"
+            app:counterMaxLength="50"
+            app:errorEnabled="true" android:layout_marginEnd="50dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintTop_toBottomOf="@+id/txtInputRegisterEmail"
+            app:layout_constraintBottom_toBottomOf="parent">
+        <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textNoSuggestions|numberDecimal|phone"
+                android:ems="10"
+                android:id="@+id/registerPhoneBox"
+                android:singleLine="true"
+                android:background="@drawable/edit_box"
+                android:textColor="@android:color/background_light"
+                android:hint="@string/registerPhone"
+                android:fontFamily="@font/ptsans"/>
+    </com.google.android.material.textfield.TextInputLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
