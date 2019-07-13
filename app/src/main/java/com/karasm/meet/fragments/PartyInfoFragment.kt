@@ -358,8 +358,8 @@ class PartyInfoFragment: Fragment(),View.OnClickListener,OnMapReadyCallback, Swi
         })
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if(item!!.itemId==R.id.home){
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId==R.id.home){
             fragmentManager!!.popBackStack()
         }
 

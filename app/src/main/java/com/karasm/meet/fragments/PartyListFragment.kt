@@ -238,7 +238,7 @@ class PartyListFragment : Fragment(), NavigationView.OnNavigationItemSelectedLis
 
 
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         activity!!.menuInflater.inflate(R.menu.main,menu)
         val item = menu!!.findItem(R.id.action_search)

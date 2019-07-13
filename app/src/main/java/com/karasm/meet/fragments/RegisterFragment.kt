@@ -120,8 +120,8 @@ class RegisterFragment: Fragment() ,TextWatcher,View.OnClickListener,DatePickerD
         txtInputLayouts=arrayOf(txtInputName,txtInputPhone,txtInputEmail,txtInputPassword,txtInputPasswordRepeat,txtInputAbout)
         return view
     }
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if(item!!.itemId== android.R.id.home){
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId== android.R.id.home){
             fragmentManager!!.popBackStack()
         }
 

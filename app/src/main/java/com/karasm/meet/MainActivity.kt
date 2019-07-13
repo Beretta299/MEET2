@@ -15,11 +15,14 @@ import okhttp3.RequestBody
 import com.karasm.meet.functions.FileUtils
 import okhttp3.MediaType
 import android.content.Intent
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.iid.FirebaseInstanceId
 import com.karasm.meet.database.dbentities.UserEntity
 import com.karasm.meet.fragments.*
 import io.reactivex.Single
@@ -60,6 +63,23 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_container)
+
+        FirebaseInstanceId.getInstance().instanceId
+            .addOnCompleteListener(OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    Log.w(PartyCreateFragment.TAG_VALUE, "getInstanceId failed", task.exception)
+                    return@OnCompleteListener
+                }
+
+                // Get new Instance ID token
+                val token = task.result?.token
+
+                // Log and toast
+                //val msg = getString(R.string.msg_token_fmt, token)
+                //Log.d(TAG, msg)
+                Log.d(PartyCreateFragment.TAG_VALUE,token)
+                //Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
+            })
 
 
 

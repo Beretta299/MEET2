@@ -81,14 +81,15 @@ class LoginFragment: Fragment(),View.OnClickListener{
 
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if(item!!.itemId== android.R.id.home){
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId== android.R.id.home){
             fragmentManager!!.popBackStack()
         }
 
 
         return super.onOptionsItemSelected(item)
     }
+
 
     fun sentData(){
         dialog.show()

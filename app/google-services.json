@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "747562793062",
+    "firebase_url": "https://meet2-3c7df.firebaseio.com",
+    "project_id": "meet2-3c7df",
+    "storage_bucket": "meet2-3c7df.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:747562793062:android:c5ca26a1cf42d0ca",
+        "android_client_info": {
+          "package_name": "com.karasm.meet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "747562793062-3rtotv30d3f2jafh6hkh68thb2l4406d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEQ9qEQSjfNl1jlLf1ox7TJ_pEBdsV9cE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "747562793062-3rtotv30d3f2jafh6hkh68thb2l4406d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
