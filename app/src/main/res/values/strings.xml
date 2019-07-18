@@ -75,7 +75,7 @@
 
 
 
-    <string name="google_maps_key" translatable="false" templateMergeStrategy="preserve">AIzaSyAmwsxyN5Apc1gNDCxXEQQ0QsJKc75hHAE</string>
+    <string name="google_maps_key" translatable="false" templateMergeStrategy="preserve">KEY_IS_HERE</string>
     <!--REGISTER-->
 
 
