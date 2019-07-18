@@ -33,7 +33,7 @@ interface IDBDao {
     fun insertParties(listOfParties:List<PartyInformation>)
 
     @Query("SELECT * FROM PartyInformation")
-    fun getParties():List<PartyInformation>
+    fun getParties():Flowable<List<PartyInformation>>
 
     @Query("SELECT * FROM PartyInformation WHERE id=:neededId")
     fun getParty(neededId:Int):PartyInformation

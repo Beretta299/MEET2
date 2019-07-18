@@ -117,7 +117,7 @@ class PartyInfoFragment: Fragment(),View.OnClickListener,OnMapReadyCallback, Swi
 
     private fun initInformation(view: View,id:Int){
         val toolbar: Toolbar = view.findViewById(com.karasm.meet.R.id.toolbar)
-
+        toolbar.title=""
         ((activity!! as AppCompatActivity)).setSupportActionBar(toolbar)
 
         ((activity!! as AppCompatActivity)).supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -184,7 +184,8 @@ class PartyInfoFragment: Fragment(),View.OnClickListener,OnMapReadyCallback, Swi
                     }
 
                     val flexBox:FlexboxLayout=view.findViewById(com.karasm.meet.R.id.categoryContainer)
-                    Log.d(PartyCreateFragment.TAG_VALUE,"["+partyInformation.categories+"]")
+
+
 
                     if(partyInformation.categories!="") {
                         val arr2 = partyInformation.categories.split(" ")
@@ -200,7 +201,7 @@ class PartyInfoFragment: Fragment(),View.OnClickListener,OnMapReadyCallback, Swi
                                 for (txt in arr2) {
                                     var textBox: TextView = TextView(context)
                                     val index = txt.toInt()
-                                    Log.d(PartyCreateFragment.TAG_VALUE,"${index-1}")
+
                                     textBox.textSize = 18f
                                     textBox.text = categories[index].categoryName
                                     textBox.isClickable = true
@@ -341,7 +342,7 @@ class PartyInfoFragment: Fragment(),View.OnClickListener,OnMapReadyCallback, Swi
         val call=RetroInstance.getInstance().INTERFACE!!.getAuthor(id)
         call.enqueue(object :Callback<UserEntity>{
             override fun onFailure(call: Call<UserEntity>, t: Throwable) {
-                Log.d(PartyCreateFragment.TAG_VALUE,t.toString())
+
             }
 
             override fun onResponse(call: Call<UserEntity>, response: Response<UserEntity>) {
@@ -394,7 +395,7 @@ class PartyInfoFragment: Fragment(),View.OnClickListener,OnMapReadyCallback, Swi
         googleMap!!.addMarker(MarkerOptions().position(sydney).title(title!!).snippet("Местоположение").icon(context!!.bitmapDescriptorFromVector(com.karasm.meet.R.drawable.shape)))
 
             if(!googleMap!!.setMapStyle(MapStyleOptions.loadRawResourceStyle(context,com.karasm.meet.R.raw.mapstyle))){
-                Log.d("PicassoTest","Error loading")
+
             }
 
 
@@ -410,7 +411,7 @@ class PartyInfoFragment: Fragment(),View.OnClickListener,OnMapReadyCallback, Swi
         googleMap!!.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
 
         }catch (e: Resources.NotFoundException){
-            Log.d("ERR","Not found")
+
         }
 
     }

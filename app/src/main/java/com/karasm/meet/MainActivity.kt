@@ -1,5 +1,8 @@
 package com.karasm.meet
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
@@ -15,7 +18,7 @@ import okhttp3.RequestBody
 import com.karasm.meet.functions.FileUtils
 import okhttp3.MediaType
 import android.content.Intent
-import android.widget.Toast
+import android.os.SystemClock
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -23,6 +26,9 @@ import androidx.fragment.app.Fragment
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.messaging.FirebaseMessaging
+import com.karasm.meet.broadcast_receivers.MyReceiver
+import com.karasm.meet.services.NetworkService
 import com.karasm.meet.database.dbentities.UserEntity
 import com.karasm.meet.fragments.*
 import io.reactivex.Single
@@ -30,6 +36,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserException
+import kotlin.collections.ArrayList
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -63,7 +70,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_container)
-
         FirebaseInstanceId.getInstance().instanceId
             .addOnCompleteListener(OnCompleteListener { task ->
                 if (!task.isSuccessful) {
@@ -77,9 +83,34 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 // Log and toast
                 //val msg = getString(R.string.msg_token_fmt, token)
                 //Log.d(TAG, msg)
-                Log.d(PartyCreateFragment.TAG_VALUE,token)
+
                 //Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
             })
+
+        if(intent.extras!=null){
+            RetroInstance.getInstance().INTERFACE!!.getPartyByI(intent.extras.getString("party").toInt())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe{
+                    party->
+                    var bundle = Bundle()
+                    bundle.putSerializable("party", party)
+                    var frag: PartyInfoFragment = PartyInfoFragment.newInstance()
+                    frag.arguments = bundle
+                    val transaction = supportFragmentManager
+                        .beginTransaction()
+
+                    transaction.setCustomAnimations(R.anim.card_flip_right_enter,
+                        R.anim.card_flip_right_exit,
+                        R.anim.card_flip_left_enter,
+                        R.anim.card_flip_left_exit)
+
+                    transaction.replace(R.id.container, frag)
+                        .addToBackStack(null)
+                        .commit()
+                }
+
+        }
 
 
 
@@ -87,11 +118,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val call=RetroInstance.getInstance().INTERFACE!!.getAuthor(26)
         call.enqueue(object:Callback<UserEntity>{
             override fun onFailure(call: Call<UserEntity>, t: Throwable) {
-                Log.d(PartyCreateFragment.TAG_VALUE,t.toString())
+
             }
 
             override fun onResponse(call: Call<UserEntity>, response: Response<UserEntity>) {
-                Log.d(PartyCreateFragment.TAG_VALUE,response.body()!!.photo)
+
             }
         })
 
@@ -108,19 +139,41 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         DBInstance.getInstance(this).dbInstanceDao().ifUserExist()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe{result->
+            .subscribe({result->
                 var fragment: Fragment =LoginFragment.newInstance()
-                Log.d(PartyCreateFragment.TAG_VALUE,"$result")
+
                 if(result==1){fragment=PartyListFragment.newInstance() }
                 supportFragmentManager
                     .beginTransaction()
                     .replace(R.id.container,fragment)
                     .commit()
-            }
+            },{})
 
 
+        val deintent = Intent(applicationContext, MyReceiver::class.java)
+        val dIntent = PendingIntent.getBroadcast(
+            this, 0,
+            deintent, PendingIntent.FLAG_UPDATE_CURRENT
+        )
+        val alarms = this.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        alarms.cancel(dIntent)
 
 
+//        val intent = Intent(applicationContext, MyReceiver::class.java)
+//        // Create a PendingIntent to be triggered when the alarm goes off
+//        val pIntent = PendingIntent.getBroadcast(
+//            this, 0,
+//            intent, PendingIntent.FLAG_UPDATE_CURRENT
+//        )
+//        val firstMillis = System.currentTimeMillis() // alarm is set right away
+//        val alarm = this.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+//        alarm.setInexactRepeating(
+//            AlarmManager.RTC_WAKEUP, firstMillis,
+//            30000, pIntent
+//        )
+
+            FirebaseMessaging.getInstance().subscribeToTopic("news")
+        FirebaseMessaging.getInstance().subscribeToTopic("crews")
 
     }
 
@@ -143,7 +196,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
                 parser.next()
             }
-            }.doOnError { Log.d(PartyCreateFragment.TAG_VALUE,"$it") }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe()
+            }.doOnError {  }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe()
         }catch (exc:XmlPullParserException){
 
         }

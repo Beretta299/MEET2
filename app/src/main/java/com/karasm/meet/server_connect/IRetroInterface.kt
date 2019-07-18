@@ -8,6 +8,8 @@ import retrofit2.Call
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
+import org.intellij.lang.annotations.Flow
+import retrofit2.Response
 import retrofit2.http.*
 import retrofit2.http.POST
 import retrofit2.http.Multipart
@@ -28,14 +30,18 @@ fun getParties(@Query("search") search:String) : Observable<retrofit2.Response<L
     fun getMyParties(@Query("id") id:Int,@Query("search") search:String) : Flowable<retrofit2.Response<List<PartyInformation>>>
 
 @POST("index.php")
-fun insertParties(@Body partyInformation: PartyInformation):Call<String>
+fun insertParties(@Body partyInformation: PartyInformation):Flowable<retrofit2.Response<String>>
 
     @FormUrlEncoded
 @POST("author.php")
 fun getAuthor(@Field("id") id:Int):Call<UserEntity>
 
+    @FormUrlEncoded
+    @POST("attenters_count.php")
+    fun checkPartyAttenders(@Field("partyID") id:Int):Flowable<String>
+
 @GET
-fun getLocationInfo(@Url url:String,@Query("latlng") latLng:String,@Query("key")key:String):Call<String>
+fun getLocationInfo(@Url url:String,@Query("latlng") latLng:String,@Query("key")key:String):Flowable<retrofit2.Response<String>>
 
     @Multipart
     @POST("{path}.php")
@@ -51,12 +57,15 @@ fun getLocationInfo(@Url url:String,@Query("latlng") latLng:String,@Query("key")
     @GET("party_id.php")
     fun getPartyById(@Query("id")id:Int):Call<PartyInformation>
 
+    @GET("party_id.php")
+    fun getPartyByI(@Query("id")id:Int):Flowable<PartyInformation>
+
     @GET("meet_to_party.php")
     fun meetParty(@Query("partyID")id:Int,@Query("userID")usID:Int):Flowable<retrofit2.Response<String>>
 
 @FormUrlEncoded
 @POST("login.php")
-fun login(@Field("login") login:String,@Field("password") password:String):Call<UserEntity>
+fun login(@Field("login") login:String,@Field("password") password:String):Flowable<Response<UserEntity>>
 
     @POST("register.php")
     fun insertUser(@Body userEntity: UserEntity):Call<String>

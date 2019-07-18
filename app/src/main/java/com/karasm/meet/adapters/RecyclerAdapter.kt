@@ -57,9 +57,7 @@ class RecyclerAdapter(val items:List<PartyInformation>, val context: Context) : 
             if(partyInformation.images!=""){
             var imageArray=partyInformation.images.split(" ").toTypedArray()
                 Picasso.get().load(imageArray[0]).into(binding.backImage)
-                Log.d(PartyCreateFragment.TAG_VALUE,"HERE2")
             }else{
-                Log.d(PartyCreateFragment.TAG_VALUE,"HERE")
                 binding.backImage.background=context!!.getDrawable(R.drawable.party)
             }
         }

@@ -46,6 +46,8 @@ import com.karasm.meet.database.dbentities.Category
 import com.karasm.meet.database.dbentities.PartyInformation
 import com.karasm.meet.functions.*
 import com.karasm.meet.server_connect.RetroInstance
+import io.reactivex.Scheduler
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.createparty_title.*
@@ -122,6 +124,7 @@ class PartyCreateFragment: Fragment(),TextWatcher,OnMapReadyCallback,View.OnClic
         val view:View=inflater.inflate(com.karasm.meet.R.layout.createparty_layout,container,false)
         val toolbar: Toolbar = view.findViewById(com.karasm.meet.R.id.toolbar)
 
+        toolbar.title=""
         ((activity!! as AppCompatActivity)).setSupportActionBar(toolbar)
 
         ((activity!! as AppCompatActivity)).supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -236,7 +239,7 @@ class PartyCreateFragment: Fragment(),TextWatcher,OnMapReadyCallback,View.OnClic
             }
         })
         if (!googleMap!!.setMapStyle(MapStyleOptions.loadRawResourceStyle(context, com.karasm.meet.R.raw.mapstyle))) {
-            Log.d("PicassoTest", "Error loading")
+
         }
 
         getLocation(marker)
@@ -351,41 +354,43 @@ class PartyCreateFragment: Fragment(),TextWatcher,OnMapReadyCallback,View.OnClic
                         if(category!=""){
                             category=category.substring(0,category.length-1)
                         }
+
+
+
                         DBInstance.getInstance(context!!).dbInstanceDao().getUser()
                             .subscribeOn(Schedulers.io())
+                            .flatMap{user->
+                                val party=PartyInformation(null,createTitle.text.toString(),0,createpartyAmount.text.toString().toInt(),createDescription.text.toString(),"${lastLocation.latitude}, ${lastLocation.longitude}",category,createpartyPrice.text.toString().toInt(),createpartyPriceInfo.text.toString(),createPartyDate.text.toString(),timePick.text.toString(),"","",user.id!!.toInt())
+                                RetroInstance.getInstance().INTERFACE!!.insertParties(party)
+                            }
                             .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe{
-                                user->
-                                val call=RetroInstance.getInstance().INTERFACE!!.insertParties(PartyInformation(null,createTitle.text.toString(),0,createpartyAmount.text.toString().toInt(),createDescription.text.toString(),"${lastLocation.latitude}, ${lastLocation.longitude}",category,createpartyPrice.text.toString().toInt(),createpartyPriceInfo.text.toString(),createPartyDate.text.toString(),timePick.text.toString(),"","",user.id!!.toInt()))
-                                call.enqueue(object:Callback<String>{
-                                    override fun onFailure(call: Call<String>, t: Throwable) {
-
-                                    }
-
-                                    override fun onResponse(call: Call<String>, response: Response<String>) {
-                                        if(response.code()==200){
-                                            if(listUri!=null){
-                                                val id:Int=response.body().toString().toInt()
-                                                for(uri in listUri){
-                                                    context!!.uploadFile(uri,id,"index")
-                                                }
-                                            }
+                            .subscribe{response->
+                                if(response.code()==200){
+                                    if(listUri!=null){
+                                        val id:Int=response.body().toString().toInt()
+                                        val party=PartyInformation(id.toLong(),createTitle.text.toString(),0,createpartyAmount.text.toString().toInt(),createDescription.text.toString(),"${lastLocation.latitude}, ${lastLocation.longitude}",category,createpartyPrice.text.toString().toInt(),createpartyPriceInfo.text.toString(),createPartyDate.text.toString(),timePick.text.toString(),"","",0)
+                                        Single.fromCallable {  DBInstance.getInstance(context!!).dbInstanceDao().insertParty(party) }
+                                            .subscribeOn(Schedulers.io())
+                                            .observeOn(AndroidSchedulers.mainThread())
+                                            .subscribe()
+                                        for(uri in listUri){
+                                            context!!.uploadFile(uri,id,"index")
                                         }
-                                        Progdialog.dismiss()
-                                        val frag=PartyListFragment.newInstance()
-                                        val transaction = activity!!.supportFragmentManager
-                                            .beginTransaction()
-
-                                        transaction.setCustomAnimations(R.anim.card_flip_right_enter,
-                                            R.anim.card_flip_right_exit,
-                                            R.anim.card_flip_left_enter,
-                                            R.anim.card_flip_left_exit)
-
-                                        transaction.replace(R.id.container, frag)
-                                            .addToBackStack(null)
-                                            .commit()
                                     }
-                                })
+                                }
+                                Progdialog.dismiss()
+                                val frag=PartyListFragment.newInstance()
+                                val transaction = activity!!.supportFragmentManager
+                                    .beginTransaction()
+
+                                transaction.setCustomAnimations(R.anim.card_flip_right_enter,
+                                    R.anim.card_flip_right_exit,
+                                    R.anim.card_flip_left_enter,
+                                    R.anim.card_flip_left_exit)
+
+                                transaction.replace(R.id.container, frag)
+                                    .addToBackStack(null)
+                                    .commit()
                             }
 
                     }
@@ -434,7 +439,7 @@ class PartyCreateFragment: Fragment(),TextWatcher,OnMapReadyCallback,View.OnClic
             when (requestCode) {
                 GALLERY_REQUEST_CODE -> {
                     if(data!!.clipData != null) {
-                        Log.d(TAG_VALUE,"NOTNULL")
+
 
                         var count :Int= data!!.clipData!!.itemCount
 

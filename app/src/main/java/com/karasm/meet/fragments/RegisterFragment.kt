@@ -84,7 +84,7 @@ class RegisterFragment: Fragment() ,TextWatcher,View.OnClickListener,DatePickerD
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view:View=inflater.inflate(R.layout.register_layout,container,false)
         val toolbar: Toolbar = view.findViewById(R.id.toolbar)
-
+        toolbar.title=""
         ((activity!! as AppCompatActivity)).setSupportActionBar(toolbar)
 
         ((activity!! as AppCompatActivity)).supportActionBar!!.setDisplayHomeAsUpEnabled(true)

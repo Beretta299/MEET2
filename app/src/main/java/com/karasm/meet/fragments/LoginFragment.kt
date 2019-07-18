@@ -3,7 +3,6 @@ package com.karasm.meet.fragments
 import android.app.Dialog
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -54,7 +53,7 @@ class LoginFragment: Fragment(),View.OnClickListener{
         registrationButton.setOnClickListener(this)
         submitButton.setOnClickListener(this)
         dialog=Dialog(context)
-        dialog.setContentView(com.karasm.meet.R.layout.dialogs_progressbar)
+        dialog.setContentView(R.layout.dialogs_progressbar)
         return view
     }
 
@@ -68,10 +67,7 @@ class LoginFragment: Fragment(),View.OnClickListener{
             registrationButton.id->{
                 val transaction = activity!!.supportFragmentManager
                     .beginTransaction()
-
-                    //transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                      transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_in_right,R.anim.slide_out_right,R.anim.slide_out_left)
-
                     transaction.replace(R.id.container, RegisterFragment.newInstance())
                     .addToBackStack(null)
                     .commit()
@@ -93,19 +89,18 @@ class LoginFragment: Fragment(),View.OnClickListener{
 
     fun sentData(){
         dialog.show()
-        val call=RetroInstance.getInstance().INTERFACE!!.login(loginBox.text.toString(),passwordBox.text.toString())
-        call.enqueue(object:Callback<UserEntity>{
-            override fun onFailure(call: Call<UserEntity>, t: Throwable) {
-            Log.d(PartyCreateFragment.TAG_VALUE,t.toString())
-            }
 
-            override fun onResponse(call: Call<UserEntity>, response: Response<UserEntity>) {
+        val call=RetroInstance.getInstance().INTERFACE!!.login(loginBox.text.toString(),passwordBox.text.toString())
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                response->
                 val user:UserEntity=response.body() as UserEntity
                 dialog.dismiss()
-                if(user.name!=null){
+                if(user!=null){
                     Single.fromCallable {  DBInstance.getInstance(context!!).dbInstanceDao().insertUser(user)
 
-                    }.doOnError{Log.d(PartyCreateFragment.TAG_VALUE,"$it")}
+                    }.doOnError{}
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe()
@@ -128,8 +123,9 @@ class LoginFragment: Fragment(),View.OnClickListener{
                     txtInputLogin.error=context!!.getString(R.string.loginError)
                     txtInputPassword.error=context!!.getString(R.string.loginError)
                 }
-            }
-        })
+            },{
+
+            })
     }
 
 }

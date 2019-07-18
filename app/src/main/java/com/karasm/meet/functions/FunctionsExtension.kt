@@ -15,6 +15,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.karasm.meet.server_connect.RetroInstance
 import okhttp3.MediaType
 import id.zelory.compressor.Compressor
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
@@ -45,7 +47,7 @@ fun Context.bitmapDescriptorFromVector(vectorResId:Int ): BitmapDescriptor {
     var bitmap: Bitmap? = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888)
     var canvas: Canvas = Canvas(bitmap);
     vectorDrawable.draw(canvas);
-    return BitmapDescriptorFactory.fromBitmap(bitmap);
+    return BitmapDescriptorFactory.fromBitmap(bitmap)
 }
 
 fun Context.resize(image: Bitmap, maxWidth: Int, maxHeight: Int): Bitmap {
@@ -71,19 +73,17 @@ fun Context.resize(image: Bitmap, maxWidth: Int, maxHeight: Int): Bitmap {
 }
 
 fun Context.setLocationText(tv: TextView,latLng:String ){
-    val call= RetroInstance.getInstance().INTERFACE!!.getLocationInfo("https://maps.googleapis.com/maps/api/geocode/json?&language=uk",latLng,getString(
+    RetroInstance.getInstance().INTERFACE!!.getLocationInfo("https://maps.googleapis.com/maps/api/geocode/json?&language=uk",latLng,getString(
         com.karasm.meet.R.string.google_maps_key))
-    call.enqueue(object: Callback<String> {
-        override fun onFailure(call: Call<String>, t: Throwable) {
-
-        }
-        override fun onResponse(call: Call<String>, response: Response<String>) {
-            var jsonObj: JSONObject = JSONObject(response.body())
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe({
+                response->
+            var jsonObj = JSONObject(response.body())
             val arr: JSONArray =jsonObj.get("results") as JSONArray
             jsonObj=arr.getJSONObject(1)
             tv.text= jsonObj.getString("formatted_address")
-        }
-    })
+        },{})
 }
 
 

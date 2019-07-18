@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            android:fitsSystemWindows="false"
+            android:fitsSystemWindows="true"
             app:popupTheme="@style/AppTheme.PopupOverlay">
         <TextView
                 android:layout_width="wrap_content"

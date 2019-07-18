@@ -80,6 +80,7 @@ class PartyListFragment : Fragment(), NavigationView.OnNavigationItemSelectedLis
         var activity=activity as Context
 
         val toolbar: Toolbar = view.findViewById(R.id.toolbar)
+        toolbar.title=""
         ((activity!! as AppCompatActivity)).setSupportActionBar(toolbar)
         val drawerLayout: DrawerLayout = view.findViewById(R.id.drawer_layout)
         val navView: NavigationView = view.findViewById(R.id.nav_view)
@@ -100,8 +101,6 @@ class PartyListFragment : Fragment(), NavigationView.OnNavigationItemSelectedLis
         Observable.create<String> { subscriber->
             searchView!!.setOnQueryTextListener(object : MaterialSearchView.OnQueryTextListener{
                 override fun onQueryTextSubmit(query: String?): Boolean {
-                    queryVal=query!!
-                    rcAdapter(rcView,queryVal)
                     return false
                 }
 
@@ -276,7 +275,7 @@ class PartyListFragment : Fragment(), NavigationView.OnNavigationItemSelectedLis
                             val party=responce.body() as List<PartyInformation>
                             loadParties(party,RCView)
                         }
-                    },{Log.d(PartyCreateFragment.TAG_VALUE,"$it")}
+                    },{}
                 )
             }
         }else{
